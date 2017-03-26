@@ -48,23 +48,19 @@ Include: yum
     yum -y install perl-CPANPLUS
     yum -y install perl-GD          # no TTF support ??
 
-
-
     # bootstrap will terminate on first error, so be careful!
     test -d /etc/singularity || mkdir /etc/singularity
     touch                          /etc/singularity/singularity_bootstart.log
     echo "start"                >> /etc/singularity/singularity_bootstart.log
     date                        >> /etc/singularity/singularity_bootstart.log
 
-    #echo '*** env ***'         >> /etc/singularity/singularity_bootstart.log
-    #env                        >> /etc/singularity/singularity_bootstart.log
-    #echo '*** mount ***'       >> /etc/singularity/singularity_bootstart.log
-    #mount                      >> /etc/singularity/singularity_bootstart.log
-
     # use add-on script to install necessary CPAN modules
     # This is mostly so that this .def file fit within the singularity (2.2) length limit
-    wget -nc https://raw.githubusercontent.com/tin6150/singhub/master/circos_perl_mod.sh
-    bash circos_perl_mod.sh
+    ## singularity hub complained ERROR : Overly-long string encountered.  ABORT : Retval = 255
+    ## So disabling Perl package depencies step to see if it make a difference
+    ## Using this step below worked in CentOS 6 host w/ Singularity 2.2.1
+    ## wget -nc https://raw.githubusercontent.com/tin6150/singhub/master/circos_perl_mod.sh
+    ## bash circos_perl_mod.sh
 
 
     CIRCOS_DIR=/opt/circos
