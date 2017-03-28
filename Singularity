@@ -3,7 +3,7 @@
 # Circos installed in /opt, contain examples and tutorials.  
 # xv graphics viewer included to see generated .png, doesn't work for .svg
 # This image need to be at least 1200 MB 
-# adopted from  https://singularity-hub.org/containers/79/
+# adopted from  https://singularity-hub.org/collections/98/
 
 BootStrap: yum
 OSVersion: 6
