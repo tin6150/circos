@@ -1,9 +1,7 @@
+# this is a test definition file for singularity container build up
+# at least back in version 2.2, there was a length limit on this .def file
+# and this was a test to where it stopped.
 
-# Singularity container definition hosting tool from circos.ca in CentOS 6 env
-# Circos installed in /opt, contain examples and tutorials.  
-# xv graphics viewer included to see generated .png, doesn't work for .svg
-# This image need to be at least 1200 MB 
-# adopted from  https://singularity-hub.org/collections/98/
 
 BootStrap: yum
 OSVersion: 6
@@ -22,7 +20,7 @@ Include: yum
 
 
 %runscript
-    /opt/circos/circos-0.69-4/bin/circos 
+    echo "This is what happens when you run the container..."
 
 
 %post
@@ -31,73 +29,164 @@ Include: yum
 
     # adding a number of rather useful packages
     yum -y install bash
-    yum -y install wget
-    yum -y install curl
-    yum -y install tar              # circos extract
-    yum -y install coreutils        # for convinience, provide yes
-    yum -y install which            # for debugging use only, not req
-    yum -y install util-linux-ng    # u/mount, etc
-    #yum -y install eog              # throws DBus error :(
-
-    # dependencies by circos
-    yum -y install gawk             # circos ./list.modules 
-    yum -y install gcc              # some cpan modules need gcc (eg Clone)
-    yum -y install gd
-    yum -y install perl
-    yum -y install perl-CPAN
-    yum -y install perl-CPANPLUS
-    yum -y install perl-GD          # no TTF support ??
+    yum -y install zsh
 
     # bootstrap will terminate on first error, so be careful!
-    test -d /etc/singularity || mkdir /etc/singularity
-    touch                          /etc/singularity/singularity_bootstart.log
-    echo "start"                >> /etc/singularity/singularity_bootstart.log
-    date                        >> /etc/singularity/singularity_bootstart.log
-
-    # use add-on script to install necessary CPAN modules
-    # This is mostly so that this .def file fit within the singularity (2.2) length limit
-    ## singularity hub complained ERROR : Overly-long string encountered.  ABORT : Retval = 255
-    ## So disabling Perl package depencies step to see if it make a difference
-    ## Using this step below worked in CentOS 6 host w/ Singularity 2.2.1
-    ## wget -nc https://raw.githubusercontent.com/tin6150/singhub/master/circos_perl_mod.sh
-    ## bash circos_perl_mod.sh
+    test -d /var/singularity || mkdir /var/singularity
+    touch                          /var/singularity/singularity_bootstart.log
+    date                        >> /var/singularity/singularity_bootstart.log
 
 
-    CIRCOS_DIR=/opt/circos
-    CIRCOS_VER=0.69-4
-    CIRCOS_TOOLS_VER=0.22
-    CIRCOS_TUTORIAL_VER=0.67
-    
-    CIRCOS_SOURCE_FILE=circos-${CIRCOS_VER}
-    CIRCOS_TOOLS_SOURCE_FILE=circos-tools-${CIRCOS_TOOLS_VER}
-    CIRCOS_TUTORIAL_SOURCE_FILE=circos-tutorials-${CIRCOS_TUTORIAL_VER}
-    test -d $CIRCOS_DIR || mkdir -p $CIRCOS_DIR
-    cd $CIRCOS_DIR
-    wget -nc "http://circos.ca/distribution/${CIRCOS_SOURCE_FILE}.tgz"
-    wget -nc "http://circos.ca/distribution/${CIRCOS_TOOLS_SOURCE_FILE}.tgz"
-    wget -nc "http://circos.ca/distribution/${CIRCOS_TUTORIAL_SOURCE_FILE}.tgz"
-    tar xfz ${CIRCOS_SOURCE_FILE}.tgz
-    tar xfz ${CIRCOS_TOOLS_SOURCE_FILE}.tgz
-    tar xfz ${CIRCOS_TUTORIAL_SOURCE_FILE}.tgz
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export $PATH' >> /etc/profile
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export $PATH' >> /etc/bashrc
-    # open up perms so tutorial work
-    touch       ${CIRCOS_SOURCE_FILE}/example/run.out 
-    chmod 777   ${CIRCOS_SOURCE_FILE}/example/run.out 
-    chmod -R a+w ${CIRCOS_TUTORIAL_SOURCE_FILE}/* 
-    # clean up
-    rm ${CIRCOS_SOURCE_FILE}.tgz
-    rm ${CIRCOS_TOOLS_SOURCE_FILE}.tgz
-    rm ${CIRCOS_TUTORIAL_SOURCE_FILE}.tgz
-
-    # optional XV graphics viewer
-    XV_PKG_FILE=xv-3.10a-37.el6.x86_64.rpm
-    cd /tmp
-    wget ftp://fr2.rpmfind.net/linux/atrpms/el6-x86_64/atrpms/stable/${XV_PKG_FILE} 
-    rpm -i ${XV_PKG_FILE}
-    rm     ${XV_PKG_FILE}
-
-
-    echo "end"                  >> /etc/singularity/singularity_bootstart.log
-    date                        >> /etc/singularity/singularity_bootstart.log
+        echo hello world.  testing 0 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 1 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 2 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 3 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 4 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 5 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 6 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 7 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 8 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 9 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 10 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 11 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 12 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 13 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 14 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 15 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 16 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 17 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 18 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 19 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 20 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 21 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 22 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 23 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 24 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 25 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 26 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 27 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 28 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 29 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 30 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 31 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 32 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 33 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 34 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 35 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 36 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 37 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 38 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 39 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 40 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 41 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 42 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 43 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 44 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 45 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 46 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 47 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 48 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 49 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 50 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 51 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 52 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 53 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 54 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 55 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 56 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 57 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 58 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 59 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 60 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 61 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 62 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 63 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 64 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 65 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 66 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 67 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 68 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 69 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 70 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 71 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 72 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 73 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 74 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 75 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 76 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 77 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 78 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 79 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 80 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 81 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 82 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 83 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 84 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 85 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 86 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 87 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 88 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 89 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 90 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 91 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 92 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 93 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 94 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 95 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 96 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 97 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 98 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 99 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 100 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 101 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 102 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 103 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 104 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 105 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 106 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 107 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 108 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 109 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 110 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 111 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 112 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 113 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 114 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 115 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 116 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 117 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 118 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 119 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 120 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 121 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 122 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 123 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 124 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 125 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 126 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 127 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 128 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 129 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 130 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 131 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 132 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 133 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 134 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 135 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 136 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 137 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 138 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 139 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 140 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 141 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 142 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 143 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 144 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 145 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 146 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 147 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 148 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 149 ... >> /var/singularity/singularity_bootstart.log
+        echo hello world.  testing 150 ... >> /var/singularity/singularity_bootstart.log
+        echo done >> /var/singularity/singularity_bootstart.log
 
