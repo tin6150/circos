@@ -9,8 +9,8 @@ circos, provided via a singularity container.
 Building the container:
 
 Singularity=/usr/local/bin/singularity
-sudo $Singularity create --size 1200 circos.img
-sudo $Singularity bootstrap circos.img Singularity
+sudo    $Singularity create --size 1200 circos.img
+sudo -E $Singularity bootstrap circos.img Singularity
 
   
 Ref:
