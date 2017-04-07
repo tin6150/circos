@@ -2,7 +2,7 @@
 # https://github.com/tin6150/circos/Singularity
 
 BootStrap:docker
-From:centos6
+From:centos:6
  
 # yum bootstrap method didn't work in singularity-hub ca 2017.04
 # which, gcc, gawk wget not installed ... 
