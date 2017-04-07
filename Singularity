@@ -1,9 +1,15 @@
 # Singularity container definition hosting tool from circos.ca in CentOS 6 env
 # https://github.com/tin6150/circos/Singularity
-BootStrap: yum
-OSVersion: 6
-MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
-Include: yum
+
+BootStrap:docker
+From:centos6
+
+# yum bootstrap method didn't work in singularity-hub ca 2017.04
+# which, gcc, gawk wget not installed ... 
+# BootStrap: yum
+# OSVersion: 6
+# MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
+# Include: yum
 
 %runscript
     /opt/circos/circos-0.69-4/bin/circos 
