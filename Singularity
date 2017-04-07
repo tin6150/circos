@@ -40,8 +40,8 @@ Include: yum
     tar xfz ${CIRCOS_SOURCE_FILE}.tgz
     tar xfz ${CIRCOS_TOOLS_SOURCE_FILE}.tgz
     tar xfz ${CIRCOS_TUTORIAL_SOURCE_FILE}.tgz
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export $PATH' >> /etc/profile
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export $PATH' >> /etc/bashrc
+    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export PATH' >> /etc/profile
+    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export PATH' >> /etc/bashrc
     touch       ${CIRCOS_SOURCE_FILE}/example/run.out 
     chmod 777   ${CIRCOS_SOURCE_FILE}/example/run.out 
     chmod -R a+w ${CIRCOS_TUTORIAL_SOURCE_FILE}/* 
