@@ -15,6 +15,7 @@ Include: yum
     yum -y install tar              # circos extract
     yum -y install coreutils        # for convinience, provide yes
     yum -y install which            # for debugging use only, not req
+    yum -y install vim
     yum -y install util-linux-ng    # u/mount, etc
     yum -y install gawk             # circos ./list.modules 
     yum -y install gcc              # some cpan modules need gcc (eg Clone)
@@ -40,8 +41,8 @@ Include: yum
     tar xfz ${CIRCOS_SOURCE_FILE}.tgz
     tar xfz ${CIRCOS_TOOLS_SOURCE_FILE}.tgz
     tar xfz ${CIRCOS_TUTORIAL_SOURCE_FILE}.tgz
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export PATH' >> /etc/profile
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_SOURCE_FILE};" 'export PATH' >> /etc/bashrc
     touch       ${CIRCOS_SOURCE_FILE}/example/run.out 
     chmod 777   ${CIRCOS_SOURCE_FILE}/example/run.out 
     chmod -R a+w ${CIRCOS_TUTORIAL_SOURCE_FILE}/* 
+    echo 'PATH=$PATH:'"/opt/${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/profile
+    echo 'PATH=$PATH:'"/opt/${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/bashrc
