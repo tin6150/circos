@@ -26,6 +26,7 @@ From:centos:6
     yum -y install gawk             # circos ./list.modules 
     yum -y install gcc              # some cpan modules need gcc (eg Clone)
     yum -y install gd
+    #yum -y install eog             # throws DBus error :(
     yum -y install perl
     yum -y install perl-CPAN
     yum -y install perl-CPANPLUS
@@ -50,5 +51,13 @@ From:centos:6
     touch       ${CIRCOS_SOURCE_FILE}/example/run.out 
     chmod 777   ${CIRCOS_SOURCE_FILE}/example/run.out 
     chmod -R a+w ${CIRCOS_TUTORIAL_SOURCE_FILE}/* 
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/profile
-    echo 'PATH=$PATH:'"/opt/${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/bashrc
+    echo 'PATH=$PATH:'"${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/profile
+    echo 'PATH=$PATH:'"${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/bashrc
+
+    # optional XV graphics viewer
+    XV_PKG_FILE=xv-3.10a-37.el6.x86_64.rpm
+    cd /tmp
+    wget ftp://fr2.rpmfind.net/linux/atrpms/el6-x86_64/atrpms/stable/${XV_PKG_FILE} 
+    rpm -i ${XV_PKG_FILE}
+    rm     ${XV_PKG_FILE}
+
