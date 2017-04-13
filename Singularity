@@ -54,7 +54,7 @@ From:centos:6
     echo 'PATH=$PATH:'"${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/profile
     echo 'PATH=$PATH:'"${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/bashrc
 
-    # optional XV graphics viewer
+    # optional XV graphics viewer - shareware (eog don't work due to DBus error)
     XV_PKG_FILE=xv-3.10a-37.el6.x86_64.rpm
     cd /tmp
     wget ftp://fr2.rpmfind.net/linux/atrpms/el6-x86_64/atrpms/stable/${XV_PKG_FILE} 
