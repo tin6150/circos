@@ -1,4 +1,9 @@
 # Singularity container definition hosting tool from circos.ca in CentOS 6 env
+#
+# Circos installed in /opt, contain examples and tutorials.  
+# xv graphics viewer included to see generated .png, doesn't work for .svg
+# This image need to be at least 1200 MB 
+# adopted from  https://singularity-hub.org/collections/98/
 # https://github.com/tin6150/circos/Singularity
 
 BootStrap:docker
