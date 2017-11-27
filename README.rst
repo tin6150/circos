@@ -1,5 +1,9 @@
 circos, provided via a singularity container.
 
+***********************************
+***** USE git checkout docker *****
+***********************************
+
 - CentOS 6
 - Circos installed in /opt (http://circos.ca) 
 - include Examples, Tutorials
