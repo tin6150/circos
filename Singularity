@@ -17,7 +17,7 @@ From:centos:6
 # Include: yum
 
 %runscript
-    /opt/circos/circos-0.69-4/bin/circos 
+    /opt/circos/circos-0.69-6/bin/circos 
 
 %post
     yum -y install bash
@@ -39,7 +39,7 @@ From:centos:6
     wget -nc https://raw.githubusercontent.com/tin6150/singhub/master/circos_perl_mod.sh
     bash circos_perl_mod.sh
     CIRCOS_DIR=/opt/circos
-    CIRCOS_VER=0.69-4
+    CIRCOS_VER=0.69-6
     CIRCOS_TOOLS_VER=0.22
     CIRCOS_TUTORIAL_VER=0.67
     CIRCOS_SOURCE_FILE=circos-${CIRCOS_VER}
