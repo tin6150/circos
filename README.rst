@@ -22,5 +22,5 @@ sudo    $Singularity build -w ./circos.img ./Singularity
 Ref:
 
 - https://github.com/tin6150/singhub/centos6_circos.def
-- https://singularity-hub.org/collections/98/
+- https://singularity-hub.org/collections/303
 
