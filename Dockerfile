@@ -1,12 +1,12 @@
-# Dockerfile for creating and host circos
+# Dockerfile for creating and host circos + tools
 # mostly:
 # docker build -f Dockerfile .  | tee LOG.Dockerfile.txt
 # where it get python from OS package, then pip to add libraries
 # see DevNotes.txt for more build details
 
 
-
 FROM rockylinux:8.9
+
 # FROM ubuntu:21.04   
 # FROM ubuntu:20.04   
 # FROM ubuntu:22.04       ## invoking docker ps from inside zink has strange error, test with older version
@@ -15,7 +15,6 @@ FROM rockylinux:8.9
 # To set ghcr to be public, so docker pull does not get unauthorized, see
 # https://www.willvelida.com/posts/pushing-container-images-to-github-container-registry/#making-our-image-publicly-accessible
 LABEL org.opencontainers.image.source="https://github.com/tin6150/circos"
-LABEL ORIGINAL_AUTHOR="https://circos.ca/software/download/circos/"
 
 
 MAINTAINER Tin (at) BERKELEY.edu
@@ -27,25 +26,9 @@ ARG TZ=PST8PDT
 ARG NO_COLOR=1
 
 
-RUN echo  ''  ;\
-    touch _TOP_DIR_OF_CONTAINER_  ;\
-    echo "This container build as ubuntu  " | tee -a _TOP_DIR_OF_CONTAINER_  ;\
-    export TERM=dumb      ;\
-    export NO_COLOR=TRUE  ;\
-    apt-get update ;\  
-    echo "installing packages via apt"       | tee -a _TOP_DIR_OF_CONTAINER_  ;\
-    apt-get -y --quiet install apt-file ;\
-    apt-get -y --quiet install git wget ;\
-    # ubuntu:   # procps provides uptime cmd
-    apt-get -y --quiet install git file wget gzip bash less vim procps ;\
-    echo "Done installing packages. " | tee -a _TOP_DIR_OF_CONTAINER_     ;\
-    cd /    ;\
-    echo ""  
-
 
 RUN echo ''  ;\
     echo '==================================================================' ;\
-    apt-get -y --quiet install git git-all  ;\
     test -d /opt/gitrepo            || mkdir -p /opt/gitrepo             ;\
     test -d /opt/gitrepo/container  || mkdir -p /opt/gitrepo/container   ;\
     #cd      /opt/gitrepo/container  ;\
@@ -59,23 +42,23 @@ COPY .           /opt/gitrepo/container/
 RUN echo ''  ;\
     echo '==================================================================' ;\
     cd    /opt/gitrepo/container/   ;\
-    bash /opt/gitrepo/container/install_dependencies.sh 2>&1 | tee /opt/gitrepo/container/install_dependencies.OUT.TXT  ;\
-    #git  checkout jgrg ;\   # the github workflow is doing branch specific build, so no need to do this checkout step
+    bash -x /opt/gitrepo/container/install.sh 2>&1 | tee /opt/gitrepo/container/install.OUT.TXT  ;\
+    echo '==================================================================' ;\
     git   branch | tee /opt/gitrepo/container/git.branch.OUT.TXT  ;\
     git   log --oneline --graph --decorate | tee /opt/gitrepo/container/git.lol.OUT.TXT  ;\
     cd    /   ;\
     echo  ""
 
+ENV DBG_APP_VER  "Dockerfile 2024.0513"
+ENV DBG_DOCKERFILE Dockerfile__base
 
 RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile      2024.0423 ub21.04"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "$DBG_APP_VER"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_APP_VER  "Dockerfile 2024.0423"
-ENV DBG_DOCKERFILE Dockerfile__base
 
 ENV TZ America/Los_Angeles 
 # ENV TZ likely changed/overwritten by container's /etc/csh.cshrc
@@ -96,8 +79,8 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 #-- unset path to ensure it didn't make Rscript behave worse cuz somehow "test" got masked/lost
 
 
-#ENTRYPOINT [ "/bin/bash" ]
-ENTRYPOINT [ "/bin/python3" ]
+ENTRYPOINT [ "/bin/bash" ]
+#ENTRYPOINT [ "/bin/python3" ]
 # $@ should be passed by docker run as arg when ENTRYPOINT is invoked
 # ref https://stackoverflow.com/questions/32727594/how-to-pass-arguments-to-shell-script-through-docker-run
 
