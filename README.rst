@@ -1,8 +1,13 @@
-circos, provided via a singularity container.
 
-***********************************
+this is a very old branch based on singularity using CentOS 6.
+
 ***** USE git checkout docker *****
 ***********************************
+
+~~~~
+
+circos, provided via a singularity container.
+
 
 - CentOS 6
 - Circos installed in /opt (http://circos.ca) 
