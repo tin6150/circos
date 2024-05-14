@@ -1,9 +1,6 @@
 
 this is a very old branch based on singularity using CentOS 6.
 
-***** USE git checkout docker *****
-***********************************
-
 ~~~~
 
 circos, provided via a singularity container.
