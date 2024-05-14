@@ -1,25 +1,13 @@
-# Singularity container definition hosting tool from circos.ca in CentOS 6 env
+# installer.sh (so that Docker, Singularity, or local install can call this)
 #
 # Circos installed in /opt, contain examples and tutorials.  
 # xv graphics viewer included to see generated .png, doesn't work for .svg
-# This image need to be at least 1200 MB 
-# adopted from  https://singularity-hub.org/collections/98/
-# https://github.com/tin6150/circos/Singularity
+# need to be at least 1200 MB 
 
-BootStrap:docker
-From:centos:6
  
-# yum bootstrap method didn't work in singularity-hub ca 2017.04
-# which, gcc, gawk wget not installed ... 
-# BootStrap: yum
-# OSVersion: 6
-# MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
-# Include: yum
+# yum, but hoping rocky8 works with these packages
 
-%runscript
-    /opt/circos/circos-0.69-6/bin/circos 
 
-%post
     yum -y install bash
     yum -y install wget
     yum -y install curl
@@ -41,7 +29,7 @@ From:centos:6
     CIRCOS_DIR=/opt/circos
     CIRCOS_VER=0.69-6
     CIRCOS_TOOLS_VER=0.22
-    CIRCOS_TUTORIAL_VER=0.67
+    CIRCOS_TUTORIAL_VER=0.69 # seems like last update id Jul 2019
     CIRCOS_SOURCE_FILE=circos-${CIRCOS_VER}
     CIRCOS_TOOLS_SOURCE_FILE=circos-tools-${CIRCOS_TOOLS_VER}
     CIRCOS_TUTORIAL_SOURCE_FILE=circos-tutorials-${CIRCOS_TUTORIAL_VER}
@@ -59,10 +47,12 @@ From:centos:6
     echo 'PATH=$PATH:'"${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/profile
     echo 'PATH=$PATH:'"${CIRCOS_DIR}/${CIRCOS_SOURCE_FILE}/bin;" 'export PATH' >> /etc/bashrc
 
-    # optional XV graphics viewer - shareware (eog don't work due to DBus error)
-    XV_PKG_FILE=xv-3.10a-37.el6.x86_64.rpm
-    cd /tmp
-    wget ftp://fr2.rpmfind.net/linux/atrpms/el6-x86_64/atrpms/stable/${XV_PKG_FILE} 
-    rpm -i ${XV_PKG_FILE}
-    rm     ${XV_PKG_FILE}
+    #~~yum -y install eog
+
+    # optional XV graphics viewer - shareware (eog don't work due to DBus error)  docker can now do X...  fix tbd
+    #xx XV_PKG_FILE=xv-3.10a-37.el6.x86_64.rpm
+    #cd /tmp
+    #wget ftp://fr2.rpmfind.net/linux/atrpms/el6-x86_64/atrpms/stable/${XV_PKG_FILE} 
+    #rpm -i ${XV_PKG_FILE}
+    #rm     ${XV_PKG_FILE}
 
